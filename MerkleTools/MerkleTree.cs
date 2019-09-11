@@ -47,7 +47,9 @@ namespace MerkleTools
 			var hash = mustHash ? _hashAlgorithm.ComputeHash(data) : data;
             var merkleleaf = new MerkleLeaf(hash);
             _leave.Add(merkleleaf);
-            _leaveDict.Add(HexEncoder.Encode(hash), merkleleaf);
+			string sHash = HexEncoder.Encode(hash);
+			if (!_leaveDict.ContainsKey(sHash))
+            	_leaveDict.Add(sHash, merkleleaf);
 			_recalculate = true;
 		}
 
