@@ -6,6 +6,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
+using System.Collections.Generic;
 
 namespace MerkleTools.Tests
 {
@@ -67,7 +68,34 @@ namespace MerkleTools.Tests
 			Assert.Equal("left:15a73ded06a3ae3f378ec09ce7c558dadeba84d2f3c76cede98c461bf64e422f", proof[1].ToString());
 		}
 
-		[Fact]
+        [Fact]
+        public void TenThousandItems()
+        {
+            SHA256 sha256Hash = SHA256.Create();
+            var mt = new MerkleTree();
+            var l = new List<byte[]>();
+            byte[] b;
+            foreach (var i in Enumerable.Range(0, 9999))
+            {
+                b = sha256Hash.ComputeHash(Encoding.ASCII.GetBytes($"test{i}"));
+                l.Add(b);
+                mt.AddLeaf(b);
+            }
+            //Assert.Equal(10, mt.Levels);
+
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            // Get all of the proofs
+            foreach (var b2 in l)
+            {
+                mt.GetProof(b2);
+            }
+
+            watch.Stop();
+            Assert.InRange<long>(watch.ElapsedMilliseconds, 0, 1000);
+
+        }
+
+        [Fact]
 		public void TenItemsx()
 		{
 			var mt = new MerkleTree();

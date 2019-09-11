@@ -12,7 +12,8 @@ namespace MerkleTools
 	{
 		private readonly HashAlgorithm _hashAlgorithm;
 		private readonly List<MerkleLeaf> _leave;
-		private MerkleNodeBase _root;
+        private readonly Dictionary<string, MerkleLeaf> _leaveDict;
+        private MerkleNodeBase _root;
 		private bool _recalculate;
 
 		public byte[] MerkleRootHash => Root?.Hash;
@@ -37,12 +38,16 @@ namespace MerkleTools
 		{
 			_hashAlgorithm = hashAlgorithm;
 			_leave = new List<MerkleLeaf>();
-		}
+            _leaveDict = new Dictionary<string, MerkleLeaf>();
+
+        }
 
 		public void AddLeaf(byte[] data, bool mustHash=false)
 		{
 			var hash = mustHash ? _hashAlgorithm.ComputeHash(data) : data;
-			_leave.Add(new MerkleLeaf(hash));
+            var merkleleaf = new MerkleLeaf(hash);
+            _leave.Add(merkleleaf);
+            _leaveDict.Add(HexEncoder.Encode(hash), merkleleaf);
 			_recalculate = true;
 		}
 
@@ -82,8 +87,9 @@ namespace MerkleTools
 		{
 			try
 			{
-				var leaf = _leave.Single(x => x.Hash.SequenceEqual(hash));
-				return GetProof(leaf);
+                var leaf = _leaveDict[HexEncoder.Encode(hash)];
+
+                return GetProof(leaf);
 			}
 			catch (InvalidOperationException e)
 			{

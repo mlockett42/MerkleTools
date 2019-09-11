@@ -7,6 +7,7 @@ namespace MerkleTools
 {
 	internal class MerkleNode : MerkleNodeBase
 	{
+		private byte[] _hash = null;
 		public static MerkleNodeBase Build(IEnumerable<MerkleNodeBase> nodes )
 		{
 			var merkleLeaves = nodes as MerkleLeaf[] ?? nodes.ToArray();
@@ -38,6 +39,8 @@ namespace MerkleTools
 		{
 			get
 			{
+				if (_hash != null)
+					return _hash;
 				byte[] hash;
 				if (Left != null && Right == null)
 				{
@@ -51,6 +54,7 @@ namespace MerkleTools
 				{
 					hash = SHA256.Create().ComputeHash(Left.Hash.Concat(Right.Hash).ToArray());
 				}
+				_hash = hash;
 				return hash;
 			}
 		}
