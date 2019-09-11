@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>MerkleTools is a library for creating and validating Merkle trees and receipts in a format consistent with the chainpoint v2 standard.</Description>
+    <AssemblyTitle>MerkleTools for .NET</AssemblyTitle>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <VersionPrefix>1.0.1</VersionPrefix>
+    <Authors>Lucas Ontivero</Authors>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>MerkleTools</AssemblyName>
+    <PackageId>MerkleTools</PackageId>
+    <PackageTags>Merkle;Tree;Proof;Chainpoint;Receipt;Timestamp</PackageTags>
+    <PackageReleaseNotes>First Version</PackageReleaseNotes>
+    <PackageIconUrl>https://raw.githubusercontent.com/O3-one/MerkleTools/master/logo64.jpg</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/O3-one/MerkleTools</PackageProjectUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/LGPL-2.1</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/O3-one/MerkleTools</RepositoryUrl>
+    <NetStandardImplicitPackageVersion>2.0.0</NetStandardImplicitPackageVersion>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+</Project>
